@@ -1,1 +1,1 @@
-this is RAG
+this is RAG for gigachat
