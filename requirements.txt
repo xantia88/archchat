@@ -1,0 +1,5 @@
+langchain-gigachat 
+langchain-chroma
+langgraph
+sentence-transformers
+langchain-community
