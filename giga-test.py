@@ -23,9 +23,8 @@ if __name__ == "__main__":
 
     # prepare request
     messages = [
-        SystemMessage(
-            content="Переведи следующее сообщение с русского на английский"),
-        HumanMessage(content="привет! сегодня хороший день"),
+        SystemMessage("Переведи следующее сообщение с русского на английский"),
+        HumanMessage("привет! сегодня хороший день"),
     ]
 
     # request
