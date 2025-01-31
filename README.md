@@ -25,8 +25,8 @@ source .venv/bin/activate
 (.venv) pip install -r requirements.txt
 ```
 
-5. Setup auth key (get one from developers.sber.ru)
+5. Setup auth key in **.env** file. Get auth key from https://developers.sber.ru/
 
 ```
-touch .env
+mv .env_template .env
 ```
