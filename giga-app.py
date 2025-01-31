@@ -13,13 +13,6 @@ def execute(llm, messages):
     print(response)
 
 
-def create_system_message(command, context):
-    if context:
-        return "{}.{}".format(context, command)
-    else:
-        return command
-
-
 if __name__ == "__main__":
 
     # load environment variables
