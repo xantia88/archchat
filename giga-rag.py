@@ -30,11 +30,9 @@ if __name__ == "__main__":
     loader = TextLoader("data/systems.txt")
     data = loader.load()
 
-    print(data)
-
     # split text into chunks
     text_splitter = RecursiveCharacterTextSplitter(
-        chunk_size=1000, chunk_overlap=0)
+        chunk_size=1000, chunk_overlap=100)
     docs = text_splitter.split_documents(data)
 
     # create embeddings and put them into in-memory vector storage
