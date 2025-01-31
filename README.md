@@ -1,6 +1,11 @@
 Installation:
 
-1. Clone this repo into working folder
+1. Clone this repo into your working folder
+
+```
+git clone ...
+cd archchat
+```
 
 2. Create Python virtual environment
 
@@ -17,5 +22,5 @@ source .venv/bin/activate
 4. Install dependencies
 
 ```
-pip install -r requirements.txt
+(.venv)pip install -r requirements.txt
 ```
