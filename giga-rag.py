@@ -5,7 +5,7 @@ from langchain.chains import RetrievalQA
 from langchain_chroma import Chroma
 from langchain_community.embeddings import SentenceTransformerEmbeddings
 from langchain_gigachat.chat_models import GigaChat
-from langchain_text_splitters import CharacterTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.document_loaders import TextLoader
 
 warnings.filterwarnings("ignore")
@@ -31,7 +31,8 @@ if __name__ == "__main__":
     data = loader.load()
 
     # split text into chunks
-    text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
+    text_splitter = RecursiveCharacterTextSplitter(
+        chunk_size=1000, chunk_overlap=0)
     docs = text_splitter.split_documents(data)
 
     # create embedings and put them into in-memory vector storage
