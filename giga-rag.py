@@ -12,7 +12,7 @@ warnings.filterwarnings("ignore")
 
 if __name__ == "__main__":
 
-    question = "сколько внешних систем?"
+    question = "какие системы описаны с ошибкой?"
 
     # load environment variables
     load_dotenv()
