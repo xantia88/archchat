@@ -22,5 +22,11 @@ source .venv/bin/activate
 4. Install dependencies
 
 ```
-(.venv)pip install -r requirements.txt
+(.venv) pip install -r requirements.txt
+```
+
+5. Setup auth key (get one from developers.sber.ru)
+
+```
+touch .env
 ```
