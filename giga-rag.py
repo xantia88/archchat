@@ -30,12 +30,14 @@ if __name__ == "__main__":
     loader = TextLoader("data/systems.txt")
     data = loader.load()
 
+    print(data)
+
     # split text into chunks
     text_splitter = RecursiveCharacterTextSplitter(
         chunk_size=1000, chunk_overlap=0)
     docs = text_splitter.split_documents(data)
 
-    # create embedings and put them into in-memory vector storage
+    # create embeddings and put them into in-memory vector storage
     db = Chroma.from_documents(docs, SentenceTransformerEmbeddings(
         model_name='all-MiniLM-L6-V2'))
 
@@ -43,7 +45,7 @@ if __name__ == "__main__":
     qa_chain = RetrievalQA.from_chain_type(llm, retriever=db.as_retriever())
 
     # request
-    ans = qa_chain({"query": question})
+    response = qa_chain({"query": question})
 
     # response
-    print(ans)
+    print(response)

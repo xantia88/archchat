@@ -6,6 +6,12 @@ import warnings
 
 warnings.filterwarnings("ignore")
 
+
+def request(llm, messages):
+    response = llm.invoke(messages)
+    print(response)
+
+
 if __name__ == "__main__":
 
     # load environment variables
@@ -22,12 +28,18 @@ if __name__ == "__main__":
 
     # prepare request
     messages = [
-        SystemMessage("Переведи следующее сообщение с русского на английский"),
-        HumanMessage("привет! сегодня хороший день"),
+        SystemMessage("Переведи сообщение с русского на английский"),
+        HumanMessage("привет! сегодня хороший день, тысяча чертей"),
     ]
 
-    # request
-    resp = llm.invoke(messages)
+    # request 1
+    request(llm, messages)
 
-    # response
-    print(resp)
+    messages = [
+        SystemMessage("Расположение системы описывается параметром location, расположение может быть либо внутренним либо внешним. Система описывается как объект с типом system. Уровень критичности системы описывается параметром level.Класс системы описывается параметром class. Класс системы может принимать одно из следующих значений: управление проектами, бухгалтерия, коммуницация. Замени в описании системы значения параметров на их текстовые описания."),
+        HumanMessage(
+            "{'type': 'system', 'name':'моя система', 'class': 'управление проектами', 'level': 'high', 'location': 'внешнее'}"),
+    ]
+
+    # request 2
+    request(llm, messages)
