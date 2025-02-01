@@ -13,6 +13,7 @@ warnings.filterwarnings("ignore")
 if __name__ == "__main__":
 
     question = "сколько внешних систем?"
+    content_file = "data/content.txt"
 
     # load environment variables
     load_dotenv()
@@ -27,7 +28,7 @@ if __name__ == "__main__":
     )
 
     # load text data from file
-    loader = TextLoader("data/systems.txt")
+    loader = TextLoader(content_file)
     data = loader.load()
 
     # split text into chunks
@@ -46,4 +47,4 @@ if __name__ == "__main__":
     response = qa_chain({"query": question})
 
     # response
-    print(response)
+    print(response["result"])

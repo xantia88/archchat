@@ -1,5 +1,6 @@
 from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_gigachat.chat_models import GigaChat
+from langchain_core.output_parsers import StrOutputParser
 from dotenv import load_dotenv
 import os
 import warnings
@@ -9,8 +10,10 @@ warnings.filterwarnings("ignore")
 
 
 def execute(llm, messages):
+    parser = StrOutputParser()
     response = llm.invoke(messages)
-    print(response)
+    s = parser.invoke(response)
+    print(s)
 
 
 if __name__ == "__main__":
@@ -37,14 +40,14 @@ if __name__ == "__main__":
     execute(llm, messages)
 
     # prepare request with a context
-    context = Path("data/context.txt").read_text()
-    system_message = "{}.{}".format(
-        context, "Замени в описании системы значения параметров на их текстовые описания")
+    context = Path("data/app/context.txt").read_text()
+    command = "Замени параметры на их текстовое описание, и составь краткое текстовое описание системы"
+    system_message = "{}.{}".format(context, command)
+    user_message = Path("data/app/systems.json").read_text()
 
     messages = [
         SystemMessage(system_message),
-        HumanMessage(
-            "{'type': 'system', 'name':'моя система', 'class': 'управление проектами', 'level': 'high', 'location': 'внешнее'}"),
+        HumanMessage(user_message),
     ]
 
     # execute request
