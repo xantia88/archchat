@@ -9,8 +9,12 @@ warnings.filterwarnings("ignore")
 
 
 def request(agent, config, text):
-    response = agent.invoke({"messages": [("user", text)]}, config=config)
-    print("Assistant: ", response["messages"][-1].content)
+    messages = {
+        "messages": [("user", text)]
+    }
+    response = agent.invoke(messages, config=config)
+    content = response["messages"][-1].content
+    print("Assistant: ", content)
 
 
 if __name__ == "__main__":
