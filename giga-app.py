@@ -4,17 +4,8 @@ from langchain_core.output_parsers import StrOutputParser
 from dotenv import load_dotenv
 import os
 import warnings
-from pathlib import Path
 
 warnings.filterwarnings("ignore")
-
-
-def execute(llm, messages):
-    parser = StrOutputParser()
-    response = llm.invoke(messages)
-    s = parser.invoke(response)
-    print(s)
-
 
 if __name__ == "__main__":
 
@@ -30,25 +21,30 @@ if __name__ == "__main__":
         verify_ssl_certs=False,
     )
 
-    # prepare simple request
+    # create prompt
+    text = ("Расположение системы описывается параметром 'location', расположение может быть либо внутренним либо внешним."
+            "Система описывается как объект с типом 'system'."
+            "Уровень критичности системы описывается параметром 'level'."
+            "Класс системы описывается параметром 'class'."
+            "Класс системы может принимать одно из следующих значений: управление проектами, бухгалтерия.")
+
+    context = f"Используй следующий контекст: {text}"
+    command = "Cоставь краткое текстовое описание системы"
+    data = {
+        "type": "system",
+        "name": "моя система",
+        "class": "управление проектами",
+        "level": "high",
+        "location": "внешнее"
+    }
+
     messages = [
-        SystemMessage("Переведи сообщение с русского на английский"),
-        HumanMessage("привет! сегодня хороший день, тысяча чертей"),
+        SystemMessage(f"{context}. {command}"),
+        HumanMessage(str(data))
     ]
 
     # execute request
-    execute(llm, messages)
-
-    # prepare request with a context
-    context = Path("data/app/context.txt").read_text()
-    command = "Замени параметры на их текстовое описание, и составь краткое текстовое описание системы"
-    system_message = "{}.{}".format(context, command)
-    user_message = Path("data/app/systems.json").read_text()
-
-    messages = [
-        SystemMessage(system_message),
-        HumanMessage(user_message),
-    ]
-
-    # execute request
-    execute(llm, messages)
+    response = llm.invoke(messages)
+    parser = StrOutputParser()
+    text = parser.invoke(response)
+    print(text)

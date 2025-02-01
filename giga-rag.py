@@ -34,10 +34,10 @@ if __name__ == "__main__":
     # split text into chunks
     text_splitter = RecursiveCharacterTextSplitter(
         chunk_size=1000, chunk_overlap=100)
-    docs = text_splitter.split_documents(data)
+    documents = text_splitter.split_documents(data)
 
     # create embeddings and put them into in-memory vector storage
-    db = Chroma.from_documents(docs, SentenceTransformerEmbeddings(
+    db = Chroma.from_documents(documents, SentenceTransformerEmbeddings(
         model_name='all-MiniLM-L6-V2'))
 
     # prepare LLM to process request
