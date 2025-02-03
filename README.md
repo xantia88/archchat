@@ -1,5 +1,7 @@
 Installation:
 
+0. Ensure you use Python 3.10 or higher
+
 1. Clone this repo into your working folder
 
 ```
