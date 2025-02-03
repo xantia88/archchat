@@ -1,4 +1,6 @@
+from os.path import isfile, join
 import os
+from os import listdir
 from dotenv import load_dotenv
 import warnings
 from langchain.chains import RetrievalQA
@@ -13,7 +15,8 @@ warnings.filterwarnings("ignore")
 if __name__ == "__main__":
 
     question = "сколько внешних систем?"
-    content_file = "data/content.txt"
+    # question = "сколько клиентов у компании?"
+    path = "data"
 
     # load environment variables
     load_dotenv()
@@ -27,9 +30,13 @@ if __name__ == "__main__":
         verify_ssl_certs=False
     )
 
-    # load text data from file
-    loader = TextLoader(content_file)
-    data = loader.load()
+    # load content
+    data = []
+    files = [file for file in listdir(path) if isfile(join(path, file))]
+    for file in files:
+        loader = TextLoader(join(path, file))
+        doc = loader.load()
+        data.extend(doc)
 
     # split text into chunks
     text_splitter = RecursiveCharacterTextSplitter(
