@@ -37,7 +37,6 @@ def translate(llm, filepath):
 
 if __name__ == "__main__":
 
-    # question = "сколько внешних систем?"
     question = "Какие поля в Р11 обязательны к заполнению?"
     path = "data"
 
