@@ -37,7 +37,8 @@ def translate(llm, filepath):
 
 if __name__ == "__main__":
 
-    question = "сколько внешних систем?"
+    # question = "сколько внешних систем?"
+    question = "Какие поля в Р11 обязательны к заполнению?"
     path = "data"
 
     # load environment variables
@@ -64,7 +65,7 @@ if __name__ == "__main__":
             data.extend(doc)
         elif ext in ["json", "yaml"]:
             text = translate(llm, filepath)
-            print(text)
+            print("[TRANSLATE]", text)
             doc = [Document(page_content=text)]
             data.extend(doc)
 
@@ -81,7 +82,8 @@ if __name__ == "__main__":
     qa_chain = RetrievalQA.from_chain_type(llm, retriever=db.as_retriever())
 
     # request
+    print("[QUESTION]", question)
     response = qa_chain({"query": question})
 
     # response
-    print(response["result"])
+    print("[ANSWER]", response["result"])
