@@ -17,15 +17,16 @@ from langchain.schema.document import Document
 warnings.filterwarnings("ignore")
 
 
-def translate(llm, data):
+def translate(llm, filepath):
 
     content = Path("config/content.txt").read_text()
     context = f"Используй следующий контекст: {content}"
     command = "Cоставь краткое текстовое описание"
+    data = Path(filepath).read_text()
 
     messages = [
         SystemMessage(f"{context}. {command}"),
-        HumanMessage(str(data))
+        HumanMessage(data)
     ]
 
     response = llm.invoke(messages)
@@ -62,13 +63,10 @@ if __name__ == "__main__":
             doc = loader.load()
             data.extend(doc)
         elif ext in ["json", "yaml"]:
-            text = Path(filepath).read_text()
-            translated_text = translate(llm, text)
-            print(translated_text)
-            doc = [Document(page_content=translated_text)]
+            text = translate(llm, filepath)
+            print(text)
+            doc = [Document(page_content=text)]
             data.extend(doc)
-
-    print(len(data))
 
     # split text into chunks
     text_splitter = RecursiveCharacterTextSplitter(
