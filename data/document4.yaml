@@ -1,0 +1,6 @@
+system:
+  type: system
+  name: молоток
+  class: строительство
+  level: очень важный
+  location: внешнее

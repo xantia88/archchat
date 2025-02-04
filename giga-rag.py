@@ -1,6 +1,7 @@
 from os.path import isfile, join
 import os
 from os import listdir
+from pathlib import Path
 from dotenv import load_dotenv
 import warnings
 from langchain.chains import RetrievalQA
@@ -9,13 +10,33 @@ from langchain_community.embeddings import SentenceTransformerEmbeddings
 from langchain_gigachat.chat_models import GigaChat
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.document_loaders import TextLoader
+from langchain_core.messages import HumanMessage, SystemMessage
+from langchain_core.output_parsers import StrOutputParser
+from langchain.schema.document import Document
 
 warnings.filterwarnings("ignore")
+
+
+def translate(llm, data):
+
+    content = Path("config/content.txt").read_text()
+    context = f"Используй следующий контекст: {content}"
+    command = "Cоставь краткое текстовое описание"
+
+    messages = [
+        SystemMessage(f"{context}. {command}"),
+        HumanMessage(str(data))
+    ]
+
+    response = llm.invoke(messages)
+    parser = StrOutputParser()
+    text = parser.invoke(response)
+    return text
+
 
 if __name__ == "__main__":
 
     question = "сколько внешних систем?"
-    # question = "сколько клиентов у компании?"
     path = "data"
 
     # load environment variables
@@ -34,9 +55,20 @@ if __name__ == "__main__":
     data = []
     files = [file for file in listdir(path) if isfile(join(path, file))]
     for file in files:
-        loader = TextLoader(join(path, file))
-        doc = loader.load()
-        data.extend(doc)
+        ext = file.split(".")[1].lower()
+        filepath = join(path, file)
+        if ext == "txt":
+            loader = TextLoader(filepath)
+            doc = loader.load()
+            data.extend(doc)
+        elif ext in ["json", "yaml"]:
+            text = Path(filepath).read_text()
+            translated_text = translate(llm, text)
+            print(translated_text)
+            doc = [Document(page_content=translated_text)]
+            data.extend(doc)
+
+    print(len(data))
 
     # split text into chunks
     text_splitter = RecursiveCharacterTextSplitter(
