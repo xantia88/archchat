@@ -37,8 +37,11 @@ def translate(llm, filepath):
 
 if __name__ == "__main__":
 
-    question = "Какие поля в Р11 обязательны к заполнению?"
-    path = "data"
+    # create prompt
+    question = ("Какие поля в Р11 обязательны к заполнению?"
+                ""
+                ""
+                "")
 
     # load environment variables
     load_dotenv()
@@ -53,6 +56,7 @@ if __name__ == "__main__":
     )
 
     # load content
+    path = "data"
     data = []
     files = [file for file in listdir(path) if isfile(join(path, file))]
     for file in files:
