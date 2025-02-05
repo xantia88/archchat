@@ -1,0 +1,15 @@
+{
+    "title": "CRM",
+    "description": "Операционный CRM",
+    "class": "CRM-операционный",
+    "location": "Внутренняя",
+    "ownership": "Владеем экземпляром",
+    "group": "ecogroup.berezka.groups.systems_sbercloud",
+    "target-status": "Целевая",
+    "live-stage": "Опытная эксплуатация",
+    "live-stage-target": "Промышленная эксплуатация",
+    "change-type": "Используется",
+    "criticality": "Business Operational",
+    "sla": 95,
+    "monitoring": "Prometheus"
+}

@@ -17,11 +17,11 @@ from langchain.schema.document import Document
 warnings.filterwarnings("ignore")
 
 
-def translate(llm, filepath):
+def translate(llm, content_file, filepath):
 
-    content = Path("config/content.txt").read_text()
+    content = Path(content_file).read_text()
     context = f"Используй следующий контекст: {content}"
-    command = "Cоставь краткое текстовое описание"
+    command = "Cоставь краткое текстовое описание системы"
     data = Path(filepath).read_text()
 
     messages = [
@@ -35,10 +35,28 @@ def translate(llm, filepath):
     return text
 
 
+def load_documents(path, content_file):
+    data = []
+    files = [file for file in listdir(path) if isfile(join(path, file))]
+    for file in files:
+        ext = file.split(".")[1].lower()
+        filepath = join(path, file)
+        if ext == "txt":
+            loader = TextLoader(filepath)
+            doc = loader.load()
+            data.extend(doc)
+        elif ext in ["json", "yaml"]:
+            text = translate(llm, content_file, filepath)
+            print("[TRANSLATE]", text)
+            doc = [Document(page_content=text)]
+            data.extend(doc)
+    return data
+
+
 if __name__ == "__main__":
 
     # create prompt
-    question = ("Какие поля в Р11 обязательны к заполнению?"
+    question = ("какой sla у CRM?"
                 ""
                 ""
                 "")
@@ -56,21 +74,7 @@ if __name__ == "__main__":
     )
 
     # load content
-    path = "data"
-    data = []
-    files = [file for file in listdir(path) if isfile(join(path, file))]
-    for file in files:
-        ext = file.split(".")[1].lower()
-        filepath = join(path, file)
-        if ext == "txt":
-            loader = TextLoader(filepath)
-            doc = loader.load()
-            data.extend(doc)
-        elif ext in ["json", "yaml"]:
-            text = translate(llm, filepath)
-            print("[TRANSLATE]", text)
-            doc = [Document(page_content=text)]
-            data.extend(doc)
+    data = load_documents("documents", "config/R11.txt")
 
     # split text into chunks
     text_splitter = RecursiveCharacterTextSplitter(
