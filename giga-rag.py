@@ -70,7 +70,7 @@ if __name__ == "__main__":
         verify_ssl_certs=False)
 
     # load content
-    data = load_documents("documents", "config/R11.txt")
+    data = load_documents("documents", "config/content.txt")
 
     # split text into chunks
     text_splitter = RecursiveCharacterTextSplitter(
