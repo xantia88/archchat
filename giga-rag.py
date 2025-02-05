@@ -8,7 +8,7 @@ from langchain.chains import RetrievalQA
 from langchain_chroma import Chroma
 from langchain_community.embeddings import SentenceTransformerEmbeddings
 from langchain_gigachat.chat_models import GigaChat
-from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_text_splitters import CharacterTextSplitter
 from langchain_community.document_loaders import TextLoader
 from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_core.output_parsers import StrOutputParser
@@ -53,10 +53,16 @@ def load_documents(path, content_file):
     return data
 
 
+def join_documents(documents):
+    texts = [document.page_content for document in documents]
+    text = " ".join(texts)
+    return [Document(page_content=text)]
+
+
 if __name__ == "__main__":
 
     # create prompt
-    question = "сколько внешних систем? выведи список"
+    question = "сколько внешних систем?"
 
     # load environment variables
     load_dotenv()
@@ -70,11 +76,13 @@ if __name__ == "__main__":
         verify_ssl_certs=False)
 
     # load content
-    data = load_documents("documents", "config/content.txt")
+    docs = load_documents("documents", "config/terms.txt")
+    print(len(docs))
+    data = join_documents(docs)
 
     # split text into chunks
-    text_splitter = RecursiveCharacterTextSplitter(
-        chunk_size=1000, chunk_overlap=100)
+    text_splitter = CharacterTextSplitter(
+        chunk_size=1000, chunk_overlap=0)
     documents = text_splitter.split_documents(data)
 
     # create embeddings and put them into in-memory vector storage
