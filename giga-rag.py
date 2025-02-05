@@ -55,7 +55,7 @@ def load_documents(path, content_file):
 
 def join_documents(documents):
     texts = [document.page_content for document in documents]
-    text = " ".join(texts)
+    text = "\n".join(texts)
     return [Document(page_content=text)]
 
 
@@ -77,7 +77,6 @@ if __name__ == "__main__":
 
     # load content
     docs = load_documents("documents", "config/terms.txt")
-    print(len(docs))
     data = join_documents(docs)
 
     # split text into chunks
