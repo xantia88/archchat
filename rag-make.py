@@ -4,11 +4,7 @@ from os import listdir
 from pathlib import Path
 from dotenv import load_dotenv
 import warnings
-from langchain.chains import RetrievalQA
-from langchain_chroma import Chroma
-from langchain_community.embeddings import SentenceTransformerEmbeddings
 from langchain_gigachat.chat_models import GigaChat
-from langchain_text_splitters import CharacterTextSplitter
 from langchain_community.document_loaders import TextLoader
 from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_core.output_parsers import StrOutputParser
