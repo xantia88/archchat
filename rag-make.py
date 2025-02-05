@@ -17,22 +17,26 @@ from langchain.schema.document import Document
 warnings.filterwarnings("ignore")
 
 
-def translate(llm, content_file, filepath):
-
-    content = Path(content_file).read_text()
-    context = f"Используй следующий контекст: {content}"
-    command = "Cоставь краткое текстовое описание системы"
-    data = Path(filepath).read_text()
+def request(llm, context, question):
 
     messages = [
-        SystemMessage(f"{context}. {command}"),
-        HumanMessage(data)
+        SystemMessage(context),
+        HumanMessage(question)
     ]
 
     response = llm.invoke(messages)
     parser = StrOutputParser()
     text = parser.invoke(response)
     return text
+
+
+def translate(llm, content_file, filepath):
+    command = "Cоставь краткое текстовое описание системы"
+    content = Path(content_file).read_text()
+    context = f"Используй следующий контекст: {content}"
+    context = f"{context}. {command}"
+    data = Path(filepath).read_text()
+    return request(llm, context, data)
 
 
 def load_documents(path, content_file):
@@ -53,16 +57,7 @@ def load_documents(path, content_file):
     return data
 
 
-def join_documents(documents):
-    texts = [document.page_content for document in documents]
-    text = "\n".join(texts)
-    return [Document(page_content=text)]
-
-
 if __name__ == "__main__":
-
-    # create prompt
-    question = "сколько внешних систем?"
 
     # load environment variables
     load_dotenv()
@@ -76,24 +71,13 @@ if __name__ == "__main__":
         verify_ssl_certs=False)
 
     # load content
-    docs = load_documents("documents", "config/terms.txt")
-    data = join_documents(docs)
+    documents = load_documents("documents", "config/terms.txt")
+    n = len(documents)
+    print(n, "documents loaded")
+    filename = "documents/data.txt"
+    with open(filename, "w") as file:
+        for document in documents:
+            file.write(document.page_content)
+            file.write("\n")
 
-    # split text into chunks
-    text_splitter = CharacterTextSplitter(
-        chunk_size=1000, chunk_overlap=0)
-    documents = text_splitter.split_documents(data)
-
-    # create embeddings and put them into in-memory vector storage
-    db = Chroma.from_documents(documents, SentenceTransformerEmbeddings(
-        model_name='all-MiniLM-L6-V2'))
-
-    # prepare LLM to process request
-    qa_chain = RetrievalQA.from_chain_type(llm, retriever=db.as_retriever())
-
-    # request
-    print("[QUESTION]", question)
-    response = qa_chain({"query": question})
-
-    # response
-    print("[ANSWER]", response["result"])
+    print("data saved to", filename)
