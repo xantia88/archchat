@@ -67,7 +67,7 @@ if __name__ == "__main__":
         verify_ssl_certs=False)
 
     # load content
-    documents = load_documents("documents", "config/terms.txt")
+    documents = load_documents("documents/systems", "config/terms.txt")
     n = len(documents)
     print(n, "documents loaded")
     filename = "documents/data.txt"
