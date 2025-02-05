@@ -1,0 +1,12 @@
+{
+    "title": "Шлюз ФИАС",
+    "description": "Шлюз ФИАС",
+    "class": "Proxy-серверы",
+    "group": "ecogroup.berezka.groups.gov",
+    "location": "Внешняя",
+    "ownership": "Система партнера",
+    "live-stage": "Промышленная эксплуатация",
+    "live-stage-target": "Промышленная эксплуатация",
+    "target-status": "Целевая",
+    "change-type": "Используется"
+}

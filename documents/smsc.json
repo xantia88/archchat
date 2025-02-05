@@ -1,0 +1,10 @@
+{
+    "title": "SMSC",
+    "description": "Сервис отправки SMS клиентам",
+    "class": "Рассылка SMS/Push",
+    "location": "Внешняя",
+    "ownership": "Система партнера",
+    "live-stage": "Промышленная эксплуатация",
+    "change-type": "Используется",
+    "group": "ecogroup.berezka.groups.external_partners"
+}

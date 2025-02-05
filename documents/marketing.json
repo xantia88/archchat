@@ -1,0 +1,10 @@
+{
+    "title": "Маркетинговые рассылки",
+    "description": "Рассылка маркетинговых сообщений клиентам",
+    "class": "Маркетинг",
+    "location": "Внешняя",
+    "ownership": "Система партнера",
+    "live-stage": "Промышленная эксплуатация",
+    "change-type": "Используется",
+    "group": "ecogroup.berezka.groups.external_partners"
+}

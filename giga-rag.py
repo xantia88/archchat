@@ -47,7 +47,7 @@ def load_documents(path, content_file):
             data.extend(doc)
         elif ext in ["json", "yaml"]:
             text = translate(llm, content_file, filepath)
-            print("[TRANSLATE]", text)
+            print(f"[TRANSLATE {filepath}]", text)
             doc = [Document(page_content=text)]
             data.extend(doc)
     return data
@@ -56,10 +56,7 @@ def load_documents(path, content_file):
 if __name__ == "__main__":
 
     # create prompt
-    question = ("какой sla у CRM?"
-                ""
-                ""
-                "")
+    question = "сколько внешних систем? выведи список"
 
     # load environment variables
     load_dotenv()
@@ -70,8 +67,7 @@ if __name__ == "__main__":
         scope="GIGACHAT_API_PERS",
         model="GigaChat",
         streaming=False,
-        verify_ssl_certs=False
-    )
+        verify_ssl_certs=False)
 
     # load content
     data = load_documents("documents", "config/R11.txt")

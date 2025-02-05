@@ -1,0 +1,10 @@
+{
+    "title": "АТС",
+    "description": "Внешний сервис виртуальной АТС",
+    "class": "Телефония",
+    "location": "Внешняя",
+    "ownership": "SaaS",
+    "live-stage": "Промышленная эксплуатация",
+    "change-type": "Используется",
+    "group": "ecogroup.berezka.groups.external_cloud"
+}

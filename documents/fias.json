@@ -1,0 +1,12 @@
+{
+    "title": "ФИАС",
+    "description": "Федеральная информационная адресная система",
+    "class": "MDM (Master Data Management)",
+    "group": "ecogroup.berezka.groups.gov",
+    "location": "Внешняя",
+    "ownership": "Система партнера",
+    "live-stage": "Промышленная эксплуатация",
+    "live-stage-target": "Промышленная эксплуатация",
+    "target-status": "Целевая",
+    "change-type": "Используется"
+}

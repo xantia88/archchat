@@ -1,0 +1,14 @@
+{
+    "title": "Дубок услуг",
+    "description": "Монолитная система, реализующая прикладной функционал маркетплейса",
+    "parent": "ecogroup.berezka.systems.sosinka",
+    "class": "Продуктовая фабрика (основная деятельность)",
+    "group": "ecogroup.berezka.groups.systems_sbercloud",
+    "location": "Внутренняя",
+    "ownership": "Владеем исходным кодом",
+    "live-stage": "Архивная",
+    "live-stage-target": "В разработке / приобретение",
+    "target-status": "Не целевая",
+    "change-type": "Модифицируется",
+    "criticality": "Mission Critical"
+}

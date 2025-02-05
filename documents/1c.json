@@ -1,0 +1,14 @@
+{
+    "title": "1C_Бухгалтерия",
+    "description": "Бухгалтерская отчетность",
+    "class": "Бухгалтерия и финансы",
+    "group": "ecogroup.berezka.groups.systems_office",
+    "location": "Внутренняя",
+    "ownership": "Владеем экземпляром",
+    "live-stage": "Промышленная эксплуатация",
+    "live-stage-target": "Промышленная эксплуатация",
+    "target-status": "Целевая",
+    "criticality": "Office Productivity",
+    "change-type": "Используется",
+    "sla": 95
+}

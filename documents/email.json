@@ -1,0 +1,10 @@
+{
+    "title": "Email",
+    "description": "Корпоративная почта",
+    "class": "E-mail",
+    "location": "Внешняя",
+    "ownership": "SaaS",
+    "live-stage": "Промышленная эксплуатация",
+    "change-type": "Используется",
+    "group": "ecogroup.berezka.groups.external_cloud"
+}
