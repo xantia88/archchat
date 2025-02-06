@@ -1,3 +1,4 @@
+from pathlib import Path
 from langgraph.checkpoint.memory import MemorySaver
 from langgraph.prebuilt import create_react_agent
 from langchain_gigachat.chat_models import GigaChat
@@ -30,10 +31,13 @@ if __name__ == "__main__":
         verify_ssl_certs=False,
     )
 
+    context = Path("config/terms.txt").read_text()
+
     # setup system prompt
     system_prompt = ("Ты ИТ специалист, тебя зовут Архимед."
-                     "Проведи интервью с пользователем."
-                     "Твоя задача узнать название системы, уровень ее критичности, размещение, класс системы. Запроси эти параметры у пользователя.")
+                     f"Для описания системы используются следующие параметры: {
+                         context}"
+                     "Твоя задача - узнать значения параметров, используемых для описания системы. Запроси эти параметры у пользователя в режиме интервью, задавая вопросы про каждый из параметров.")
 
     # create reactive agent (chat bot)
     agent = create_react_agent(

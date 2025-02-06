@@ -22,7 +22,7 @@ if __name__ == "__main__":
     llm = GigaChat(
         credentials=os.environ["auth_key"],
         scope="GIGACHAT_API_PERS",
-        model="GigaChat",
+        model=os.environ["model"],
         streaming=False,
         verify_ssl_certs=False)
 
