@@ -40,8 +40,6 @@ if __name__ == "__main__":
             document = loader.load()
             data.extend(document)
 
-    exit()
-
     # split text into chunks
     text_splitter = CharacterTextSplitter(
         chunk_size=1000, chunk_overlap=0)
