@@ -70,7 +70,7 @@ if __name__ == "__main__":
     documents = load_documents("documents/systems", "config/terms.txt")
     n = len(documents)
     print(n, "documents loaded")
-    filename = "documents/data.txt"
+    filename = "documents/systems.txt"
     with open(filename, "w") as file:
         for document in documents:
             file.write(document.page_content)

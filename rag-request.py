@@ -1,4 +1,6 @@
 import os
+from os import listdir
+from os.path import isfile, join
 from dotenv import load_dotenv
 import warnings
 from langchain.chains import RetrievalQA
@@ -26,9 +28,19 @@ if __name__ == "__main__":
         streaming=False,
         verify_ssl_certs=False)
 
-    # load content
-    loader = TextLoader("documents/data.txt")
-    data = loader.load()
+    # load content from txt files
+    data = []
+    path = "documents"
+    files = [file for file in listdir(path) if isfile(join(path, file))]
+    for file in files:
+        if file.endswith(".txt"):
+            filepath = join(path, file)
+            print("load:", filepath)
+            loader = TextLoader(filepath)
+            document = loader.load()
+            data.extend(document)
+
+    exit()
 
     # split text into chunks
     text_splitter = CharacterTextSplitter(
